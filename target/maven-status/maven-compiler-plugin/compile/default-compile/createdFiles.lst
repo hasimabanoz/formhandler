@@ -1,0 +1,16 @@
+com\acme\form\model\UserMin.class
+com\acme\form\model\User.class
+com\acme\form\service\UserService.class
+com\acme\form\dao\UserDaoImpl.class
+com\acme\form\dao\UserDaoMinImpl$UserMapper.class
+com\acme\form\web\UserController.class
+com\acme\form\config\SpringWebConfig.class
+com\acme\form\dao\UserDao.class
+com\acme\form\exception\GlobalExceptionHandler.class
+com\acme\form\validator\EmailValidator.class
+com\acme\form\config\SpringDBConfig.class
+com\acme\form\dao\UserDaoImpl$UserMapper.class
+com\acme\form\service\UserServiceImpl.class
+com\acme\form\validator\UserFormValidator.class
+com\acme\form\dao\UserDaoImpl$1.class
+com\acme\form\dao\UserDaoMinImpl.class
