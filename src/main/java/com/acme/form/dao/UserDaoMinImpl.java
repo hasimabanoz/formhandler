@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,10 +28,13 @@ import org.springframework.util.StringUtils;
 
 import com.acme.form.model.User;
 import com.acme.form.model.UserMin;
+import com.acme.form.web.UserController;
 
-//@Repository
-public class UserDaoMinImpl implements UserDao {
+@Repository
+public class UserDaoMinImpl implements UserDaoMin {
 
+	private static final Logger logger = LogManager.getLogger(UserDaoMinImpl.class);
+	
 	MongoTemplate mongoTemplate;
 	MongoOperations mongoOperation;
 
@@ -45,17 +50,23 @@ public class UserDaoMinImpl implements UserDao {
 
 	@Override
 	public User findById(Integer id) {
+		
 		return null;
 	}
 
 	@Override
 	public List<User> findAll() {
+		logger.debug("UserDaoMinImpl find all.");
+		for (UserMin userMin : mongoOperation.findAll(UserMin.class)) {
+			logger.debug(userMin);
+		}
 		return null;
 	}
 
 	@Override
 	public void save(User user) {
-		UserMin userMin = new UserMin("hasim", "pass", "1234");
+		UserMin userMin = new UserMin(user.getName(), user.getPassword(), Integer.toString(user.getNumber()));
+		logger.debug("UserDaoMinImpl save: " + userMin);
 		mongoOperation.save(userMin);
 	}
 

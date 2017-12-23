@@ -41,7 +41,7 @@ public class UserController {
 
 	@Autowired
 	UserFormValidator userFormValidator;
-	
+
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(userFormValidator);
@@ -72,8 +72,8 @@ public class UserController {
 
 	// save or update user
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated User user,
-			BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
+	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated User user, BindingResult result, Model model,
+			final RedirectAttributes redirectAttributes) {
 
 		logger.debug("saveOrUpdateUser() : {}", user);
 
@@ -83,14 +83,14 @@ public class UserController {
 		} else {
 
 			redirectAttributes.addFlashAttribute("css", "success");
-			if(user.isNew()){
+			if (user.isNew()) {
 				redirectAttributes.addFlashAttribute("msg", "User added successfully!");
-			}else{
+			} else {
 				redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
 			}
-			
+
 			userService.saveOrUpdate(user);
-			
+
 			// POST/REDIRECT/GET
 			return "redirect:/users/" + user.getId();
 
@@ -113,8 +113,8 @@ public class UserController {
 		user.setName("mkyong123");
 		user.setEmail("test@gmail.com");
 		user.setAddress("abc 88");
-		//user.setPassword("123");
-		//user.setConfirmPassword("123");
+		// user.setPassword("123");
+		// user.setConfirmPassword("123");
 		user.setNewsletter(true);
 		user.setSex("M");
 		user.setFramework(new ArrayList<String>(Arrays.asList("Spring MVC", "GWT")));
@@ -138,9 +138,9 @@ public class UserController {
 
 		User user = userService.findById(id);
 		model.addAttribute("userForm", user);
-		
+
 		populateDefaultModel(model);
-		
+
 		return "users/userform";
 
 	}
@@ -152,10 +152,10 @@ public class UserController {
 		logger.debug("deleteUser() : {}", id);
 
 		userService.delete(id);
-		
+
 		redirectAttributes.addFlashAttribute("css", "success");
 		redirectAttributes.addFlashAttribute("msg", "User is deleted!");
-		
+
 		return "redirect:/users";
 
 	}

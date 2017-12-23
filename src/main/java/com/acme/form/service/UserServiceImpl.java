@@ -11,21 +11,28 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.acme.form.dao.UserDao;
+import com.acme.form.dao.UserDaoMin;
 import com.acme.form.model.User;
 import com.acme.form.model.UserMin;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	
+
 	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
 	UserDao userDao;
+	UserDaoMin userDaoMin;
 
-	MongoTemplate mongoTemplate;
+	// MongoTemplate mongoTemplate;
 
 	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+	
+	@Autowired
+	public void setUserDaoMin(UserDaoMin userDaoMin) {
+		this.userDaoMin = userDaoMin;
 	}
 
 	// @Autowired
@@ -35,16 +42,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findById(Integer id) {
+		userDaoMin.findById(id);
 		return userDao.findById(id);
 	}
 
 	@Override
 	public List<User> findAll() {
 		logger.debug("FIND ALL");
-		// MongoOperations mongoOperation = (MongoOperations) mongoTemplate;
-		// UserMin userMin = new UserMin("hasim", "pass", "1234");
-		// save
-		// mongoOperation.save(userMin);
+		userDaoMin.findAll();
 		return userDao.findAll();
 	}
 
@@ -53,8 +58,10 @@ public class UserServiceImpl implements UserService {
 
 		if (findById(user.getId()) == null) {
 			userDao.save(user);
+			userDaoMin.save(user);
 		} else {
 			userDao.update(user);
+			userDaoMin.update(user);
 		}
 
 	}
@@ -62,6 +69,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(int id) {
 		userDao.delete(id);
+		userDaoMin.delete(id);
 	}
 
 }
