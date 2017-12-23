@@ -8,8 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acme.form.model.User;
 import com.acme.form.service.UserService;
+import com.acme.form.service.UserServiceImpl;
 import com.acme.form.validator.UserFormValidator;
 
 //http://www.tikalk.com/redirectattributes-new-feature-spring-mvc-31/
@@ -36,7 +37,7 @@ import com.acme.form.validator.UserFormValidator;
 @Controller
 public class UserController {
 
-	private final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LogManager.getLogger(UserController.class);
 
 	@Autowired
 	UserFormValidator userFormValidator;
