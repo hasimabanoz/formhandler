@@ -2,16 +2,16 @@ package com.acme.form.service;
 
 import java.util.List;
 
-import com.acme.form.model.User;
+import com.acme.form.model.UserMin;
 
 public interface UserService {
 
-	User findById(Integer id);
-	
-	List<User> findAll();
+	UserMin findById(String id);
 
-	void saveOrUpdate(User user);
-	
-	void delete(int id);
-	
+	List<UserMin> findAll();
+
+	void saveOrUpdate(UserMin user);
+
+	void delete(String id);
+
 }

@@ -8,18 +8,23 @@ public class UserMin {
 
 	@Id
 	private String id;
-
 	String username;
-
-	String password;
-
+	String surname;
 	String phone;
 
-	public UserMin(String username, String password, String phone) {
+	public UserMin() {
+		super();
+	}
+
+	public UserMin(String username, String surname, String phone) {
 		super();
 		this.username = username;
-		this.password = password;
+		this.surname = surname;
 		this.phone = phone;
+	}
+
+	public boolean isNew() {
+		return (this.id == null);
 	}
 
 	public String getId() {
@@ -38,12 +43,12 @@ public class UserMin {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getPhone() {
@@ -56,7 +61,7 @@ public class UserMin {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "User [id=" + id + ", username=" + username + ", surname=" + surname + "]";
 	}
 
 }

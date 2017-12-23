@@ -2,18 +2,18 @@ package com.acme.form.dao;
 
 import java.util.List;
 
-import com.acme.form.model.User;
+import com.acme.form.model.UserMin;
 
 public interface UserDaoMin {
 
-	User findById(Integer id);
+	UserMin findById(String id);
 
-	List<User> findAll();
+	List<UserMin> findAll();
 
-	void save(User user);
+	void save(UserMin user);
 
-	void update(User user);
+	void update(UserMin user);
 
-	void delete(Integer id);
+	void delete(String id);
 
 }

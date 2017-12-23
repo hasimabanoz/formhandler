@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.acme.form.model.User;
+import com.acme.form.model.UserMin;
 import com.acme.form.service.UserService;
 import com.acme.form.service.UserServiceImpl;
 import com.acme.form.validator.UserFormValidator;
@@ -72,13 +72,13 @@ public class UserController {
 
 	// save or update user
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated User user, BindingResult result, Model model,
+	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated UserMin user, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
 
 		logger.debug("saveOrUpdateUser() : {}", user);
 
 		if (result.hasErrors()) {
-			populateDefaultModel(model);
+			//populateDefaultModel(model);
 			return "users/userform";
 		} else {
 
@@ -107,24 +107,11 @@ public class UserController {
 
 		logger.debug("showAddUserForm()");
 
-		User user = new User();
-
-		// set default value
-		user.setName("mkyong123");
-		user.setEmail("test@gmail.com");
-		user.setAddress("abc 88");
-		// user.setPassword("123");
-		// user.setConfirmPassword("123");
-		user.setNewsletter(true);
-		user.setSex("M");
-		user.setFramework(new ArrayList<String>(Arrays.asList("Spring MVC", "GWT")));
-		user.setSkill(new ArrayList<String>(Arrays.asList("Spring", "Grails", "Groovy")));
-		user.setCountry("SG");
-		user.setNumber(2);
+		UserMin user = new UserMin("John", "Wick", "555-1234567");
 
 		model.addAttribute("userForm", user);
 
-		populateDefaultModel(model);
+		//populateDefaultModel(model);
 
 		return "users/userform";
 
@@ -132,14 +119,14 @@ public class UserController {
 
 	// show update form
 	@RequestMapping(value = "/users/{id}/update", method = RequestMethod.GET)
-	public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
+	public String showUpdateUserForm(@PathVariable("id") String id, Model model) {
 
 		logger.debug("showUpdateUserForm() : {}", id);
 
-		User user = userService.findById(id);
+		UserMin user = userService.findById(id);
 		model.addAttribute("userForm", user);
 
-		populateDefaultModel(model);
+		//populateDefaultModel(model);
 
 		return "users/userform";
 
@@ -147,7 +134,7 @@ public class UserController {
 
 	// delete user
 	@RequestMapping(value = "/users/{id}/delete", method = RequestMethod.POST)
-	public String deleteUser(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
+	public String deleteUser(@PathVariable("id") String id, final RedirectAttributes redirectAttributes) {
 
 		logger.debug("deleteUser() : {}", id);
 
@@ -162,11 +149,11 @@ public class UserController {
 
 	// show user
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-	public String showUser(@PathVariable("id") int id, Model model) {
+	public String showUser(@PathVariable("id") String id, Model model) {
 
 		logger.debug("showUser() id: {}", id);
 
-		User user = userService.findById(id);
+		UserMin user = userService.findById(id);
 		if (user == null) {
 			model.addAttribute("css", "danger");
 			model.addAttribute("msg", "User not found");
