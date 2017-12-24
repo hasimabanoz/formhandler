@@ -1,11 +1,5 @@
 package com.acme.form.web;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acme.form.model.UserMin;
 import com.acme.form.service.UserService;
-import com.acme.form.service.UserServiceImpl;
 import com.acme.form.validator.UserFormValidator;
 
 //http://www.tikalk.com/redirectattributes-new-feature-spring-mvc-31/
@@ -67,18 +60,16 @@ public class UserController {
 		logger.debug("showAllUsers()");
 		model.addAttribute("users", userService.findAll());
 		return "users/list";
-
 	}
 
 	// save or update user
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
-	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated UserMin user, BindingResult result, Model model,
-			final RedirectAttributes redirectAttributes) {
+	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated UserMin user, BindingResult result,
+			Model model, final RedirectAttributes redirectAttributes) {
 
 		logger.debug("saveOrUpdateUser() : {}", user);
 
 		if (result.hasErrors()) {
-			//populateDefaultModel(model);
 			return "users/userform";
 		} else {
 
@@ -93,12 +84,7 @@ public class UserController {
 
 			// POST/REDIRECT/GET
 			return "redirect:/users/" + user.getId();
-
-			// POST/FORWARD/GET
-			// return "user/list";
-
 		}
-
 	}
 
 	// show add user form
@@ -107,14 +93,11 @@ public class UserController {
 
 		logger.debug("showAddUserForm()");
 
-		UserMin user = new UserMin("John", "Wick", "555-1234567");
+		UserMin user = new UserMin("John", "Wick", "1234567890");
 
 		model.addAttribute("userForm", user);
 
-		//populateDefaultModel(model);
-
 		return "users/userform";
-
 	}
 
 	// show update form
@@ -126,10 +109,7 @@ public class UserController {
 		UserMin user = userService.findById(id);
 		model.addAttribute("userForm", user);
 
-		//populateDefaultModel(model);
-
 		return "users/userform";
-
 	}
 
 	// delete user
@@ -144,7 +124,6 @@ public class UserController {
 		redirectAttributes.addFlashAttribute("msg", "User is deleted!");
 
 		return "redirect:/users";
-
 	}
 
 	// show user
@@ -161,43 +140,6 @@ public class UserController {
 		model.addAttribute("user", user);
 
 		return "users/show";
-
-	}
-
-	private void populateDefaultModel(Model model) {
-
-		List<String> frameworksList = new ArrayList<String>();
-		frameworksList.add("Spring MVC");
-		frameworksList.add("Struts 2");
-		frameworksList.add("JSF 2");
-		frameworksList.add("GWT");
-		frameworksList.add("Play");
-		frameworksList.add("Apache Wicket");
-		model.addAttribute("frameworkList", frameworksList);
-
-		Map<String, String> skill = new LinkedHashMap<String, String>();
-		skill.put("Hibernate", "Hibernate");
-		skill.put("Spring", "Spring");
-		skill.put("Struts", "Struts");
-		skill.put("Groovy", "Groovy");
-		skill.put("Grails", "Grails");
-		model.addAttribute("javaSkillList", skill);
-
-		List<Integer> numbers = new ArrayList<Integer>();
-		numbers.add(1);
-		numbers.add(2);
-		numbers.add(3);
-		numbers.add(4);
-		numbers.add(5);
-		model.addAttribute("numberList", numbers);
-
-		Map<String, String> country = new LinkedHashMap<String, String>();
-		country.put("US", "United Stated");
-		country.put("CN", "China");
-		country.put("SG", "Singapore");
-		country.put("MY", "Malaysia");
-		model.addAttribute("countryList", country);
-
 	}
 
 	@ExceptionHandler(EmptyResultDataAccessException.class)
@@ -211,7 +153,6 @@ public class UserController {
 		model.addObject("msg", "user not found");
 
 		return model;
-
 	}
 
 }

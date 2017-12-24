@@ -11,19 +11,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.acme.form.service.UserServiceImpl;
-
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	public static final String DEFAULT_ERROR_VIEW = "error";
 
 	private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
-	
+
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-		
+
 		logger.error("[URL] : {}", req.getRequestURL(), e);
-		
+
 		// If the exception is annotated with @ResponseStatus rethrow it and let
 		// the framework handle it - like the OrderNotFoundException example
 		// at the start of this post.
@@ -38,5 +36,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		mav.setViewName(DEFAULT_ERROR_VIEW);
 		return mav;
 	}
-	
+
 }

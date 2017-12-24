@@ -15,8 +15,8 @@ import com.acme.form.service.UserService;
 public class UserFormValidator implements Validator {
 
 	@Autowired
-	@Qualifier("emailValidator")
-	EmailValidator emailValidator;
+	@Qualifier("phoneValidator")
+	PhoneNumberValidator phoneValidator;
 
 	@Autowired
 	UserService userService;
@@ -34,6 +34,10 @@ public class UserFormValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty.userForm.username");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "NotEmpty.userForm.surname");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "NotEmpty.userForm.phone");
+		
+		if(!phoneValidator.valid(user.getPhone())){
+			errors.rejectValue("phone", "Pattern.userForm.phone");
+		}
 
 	}
 

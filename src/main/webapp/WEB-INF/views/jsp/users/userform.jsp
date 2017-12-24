@@ -52,7 +52,7 @@
 			<div class="form-group ${status.error ? 'has-error' : ''}">
 				<label class="col-sm-2 control-label">Phone</label>
 				<div class="col-sm-10">
-					<form:input path="phone" class="form-control" id="phone" placeholder="Phone" />
+					<form:input path="phone" class="form-control" id="phone" placeholder="1234567890, 123 456 7890" />
 					<form:errors path="phone" class="control-label" />
 				</div>
 			</div>
