@@ -1,6 +1,7 @@
 package com.acme.form.validator;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 @Component("phoneValidator")
 public class PhoneNumberValidator {
@@ -21,6 +22,9 @@ public class PhoneNumberValidator {
 			return true;
 		// validating phone number where area code is in braces ()
 		else if (phone.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}"))
+			return true;
+		// empty phone number
+		else if (StringUtils.isEmpty(phone))
 			return true;
 		// return false if nothing matches the input
 		else

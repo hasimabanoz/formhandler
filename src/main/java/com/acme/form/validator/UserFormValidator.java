@@ -33,7 +33,7 @@ public class UserFormValidator implements Validator {
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty.userForm.username");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "NotEmpty.userForm.surname");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "NotEmpty.userForm.phone");
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "NotEmpty.userForm.phone");
 		
 		if(!phoneValidator.valid(user.getPhone())){
 			errors.rejectValue("phone", "Pattern.userForm.phone");
