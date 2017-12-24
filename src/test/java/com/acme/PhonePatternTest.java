@@ -1,20 +1,41 @@
 package com.acme;
 
+import static org.junit.Assert.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.acme.form.web.UserController;
+
 public class PhonePatternTest {
+	
+	private static final Logger logger = LogManager.getLogger(UserController.class);
 
-	public static void main(String[] args) {
-		System.out.println("Phone number 1234567890 validation result: " + validatePhoneNumber("1234567890"));
-		System.out.println("Phone number 123-456-7890 validation result: " + validatePhoneNumber("123-456-7890"));
-		System.out.println(
-				"Phone number 123-456-7890 x1234 validation result: " + validatePhoneNumber("123-456-7890 x1234"));
-		System.out.println(
-				"Phone number 123-456-7890 ext1234 validation result: " + validatePhoneNumber("123-456-7890 ext1234"));
-		System.out.println("Phone number (123)-456-7890 validation result: " + validatePhoneNumber("(123)-456-7890"));
-		System.out.println("Phone number 123.456.7890 validation result: " + validatePhoneNumber("123.456.7890"));
-		System.out.println("Phone number 123 456 7890 validation result: " + validatePhoneNumber("123 456 7890"));
-
+	@Before
+	public void beforeEachTest() {
+		
 	}
 
+	@After
+	public void afterEachTest() {
+		
+	}
+
+	@Test
+	public void testValid() {
+		assertTrue(validatePhoneNumber("1234567890"));
+		assertTrue(validatePhoneNumber("123-456-7890"));
+		assertTrue(validatePhoneNumber("123-456-7890 x1234"));
+		assertTrue(validatePhoneNumber("123-456-7890 ext1234"));
+		assertTrue(validatePhoneNumber("(123)-456-7890"));
+		assertTrue(validatePhoneNumber("123.456.7890"));
+		assertTrue(validatePhoneNumber("123 456 7890"));
+		
+	}
+	
 	private static boolean validatePhoneNumber(String phoneNo) {
 		// validate phone numbers of format "1234567890"
 		if (phoneNo.matches("\\d{10}"))
@@ -31,7 +52,8 @@ public class PhonePatternTest {
 		// return false if nothing matches the input
 		else
 			return false;
-
 	}
+	
+	
 
 }
